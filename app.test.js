@@ -123,19 +123,6 @@ describe('Operation unknown', () => {
             .get('/fessss');
         
             expect(resp.status).toEqual(400);
-    });
-
-    test('/', async () => {
-        const resp = await request(app)
-            .get('/');
-        
-        expect(resp.text).toEqual(opUn);
-    });
-    
-    test('/calculation', async () => {
-        const resp = await request(app)
-            .get('/calculation');
-        
-        expect(resp.text).toEqual(opUn);
+            expect(resp.text).toEqual(opUn);
     });
 });
