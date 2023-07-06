@@ -2,7 +2,19 @@ const request = require('supertest');
 const fs = require('fs');
 const app = require('../app');
 
-console.log('Tests are started. d');
+console.log('Tests are started. e');
+
+describe('Operation unknown', () => {
+    const opUn = 'Operation unknown';
+    test('/bb status 400 & Operation unknown', async () => {
+        const resp = await request(app)
+            .get('/bb');
+        
+            expect(resp.status).toEqual(400);
+            expect(resp.text).toEqual(opUn);
+    });
+});
+
 describe('Calculator', () => {
     const path = '/calc';
 
@@ -91,16 +103,5 @@ describe('File System', () => {
             expect(resp.status).toEqual(201);
             expect(resp.text).toEqual(text);
         });
-    });
-});
-
-describe('Operation unknown', () => {
-    const opUn = 'Operation unknown';
-    test('/bb status 400 & Operation unknown', async () => {
-        const resp = await request(app)
-            .get('/bb');
-        
-            expect(resp.status).toEqual(400);
-            expect(resp.text).toEqual(opUn);
     });
 });
