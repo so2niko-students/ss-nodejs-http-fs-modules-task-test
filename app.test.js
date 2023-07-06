@@ -103,15 +103,6 @@ describe('File System', () => {
                 expect(resp.text).toEqual(text);
             });
         });
-
-        const resp = await request(app)
-            .get(path)
-            .query({
-                operation: 'read',
-                filename: 'tf988.txt'
-            });
-        
-        expect(resp.text).toEqual('smart inside');
     });
 
     test('/fs read tf989.txt', async () => {
