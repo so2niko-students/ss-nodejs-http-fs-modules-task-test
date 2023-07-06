@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../app');
 const fs = require('fs');
 
-console.log('Tests are started. a');
+console.log('Tests are started. b');
 describe('Calculator', () => {
     const path = '/calc';
     test('/calc status 200', async () => {
@@ -118,7 +118,7 @@ describe('File System', () => {
 
 describe('Operation unknown', () => {
     const opUn = 'Operation unknown';
-    test('/fessss status 200', async () => {
+    test('/fessss status 400', async () => {
         const resp = await request(app)
             .get('/fessss');
         
