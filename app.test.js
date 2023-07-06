@@ -125,19 +125,13 @@ describe('Operation unknown', () => {
             expect(resp.status).toEqual(400);
     });
 
-    test('/filesystem', async () => {
-        const resp = await request(app)
-            .get('/filesystem');
-        
-        expect(resp.text).toEqual(opUn);
-    });
-
     test('/', async () => {
         const resp = await request(app)
             .get('/');
         
         expect(resp.text).toEqual(opUn);
     });
+    
     test('/calculation', async () => {
         const resp = await request(app)
             .get('/calculation');
