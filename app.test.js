@@ -2,6 +2,7 @@ const request = require('supertest');
 const app = require('../app');
 const fs = require('fs');
 
+console.log('Tests are started. a');
 describe('Calculator', () => {
     const path = '/calc';
     test('/calc status 200', async () => {
@@ -70,63 +71,60 @@ describe('File System', () => {
     });
 
     test('/fs create tf988.txt smart inside', async () => {
-        
-        fs.unlink('tf988.txt', async (err) => {
-            if(err) throw err;
-            const resp = await request(app)
-            .get(path)
-            .query({
-                operation: 'create',
-                filename: 'tf988.txt',
-                text: 'smart inside'
-            });
-        
-            expect(resp.text).toEqual('tf988.txt was created');
-        });
 
+        const resp = await request(app)
+        .get(path)
+        .query({
+            operation: 'create',
+            filename: 'tf988.txt',
+            text: 'smart inside'
+        });
+    
+        expect(resp.text).toEqual('tf988.txt was created');
     });
 
     test('/fs read tf988.txt', async () => {
         const fileName = 'tf988.txt';
         const text = '---------____------------_____----';
-        fs.unlink(fileName, async (err) => {
+        fs.appendFile(fileName, text, async (err) => {
             if(err) throw err;
-            fs.appendFile(fileName, text, async (err) => {
-                if(err) throw err;
-                const resp = await request(app)
-                .get(path)
-                .query({
-                    operation: 'read',
-                    filename: fileName
-                });
-            
-                expect(resp.text).toEqual(text);
+            const resp = await request(app)
+            .get(path)
+            .query({
+                operation: 'read',
+                filename: fileName
             });
+        
+            expect(resp.text).toEqual(text);
         });
     });
 
     test('/fs read tf989.txt', async () => {
         const fileName = 'tf989.txt';
         const text = 'tf989.txttf989.txttf989.txttf989.txttf989.txt';
-        fs.unlink(fileName, async (err) => {
+        fs.appendFile(fileName, text, async (err) => {
             if(err) throw err;
-            fs.appendFile(fileName, text, async (err) => {
-                if(err) throw err;
-                const resp = await request(app)
+            const resp = await request(app)
                 .get(path)
                 .query({
                     operation: 'read',
                     filename: fileName
                 });
-            
-                expect(resp.text).toEqual(text);
-            });
+        
+            expect(resp.text).toEqual(text);
         });
     });
 });
 
 describe('Operation unknown', () => {
     const opUn = 'Operation unknown';
+    test('/fessss status 200', async () => {
+        const resp = await request(app)
+            .get('/fessss');
+        
+            expect(resp.status).toEqual(400);
+    });
+
     test('/ff', async () => {
         const resp = await request(app)
             .get('/ff');
