@@ -87,6 +87,23 @@ describe('File System', () => {
     });
 
     test('/fs read tf988.txt', async () => {
+        const fileName = 'tf988.txt';
+        const text = '---------____------------_____----';
+        fs.unlink(fileName, async (err) => {
+            if(err) throw err;
+            fs.appendFile(fileName, text, async (err) => {
+                if(err) throw err;
+                const resp = await request(app)
+                .get(path)
+                .query({
+                    operation: 'read',
+                    filename: fileName
+                });
+            
+                expect(resp.text).toEqual(text);
+            });
+        });
+
         const resp = await request(app)
             .get(path)
             .query({
